@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#myTable").DataTable();
+      });
+    </script>
+    <title>Taxi List</title>
+    <style>
+      /* body {
+        background-image: linear-gradient(to bottom right, orange, yellow);
+        background-size: 100% 100%;
+      } */
+      #active {
+        font-weight: 900;
+        border-bottom: 2px solid;
+      }
+      .nav-link:hover {
+        border-bottom: 2px solid;
+      }
+      .display {
+        font-size: larger;
+        font-weight: 600;
+      }
+      input[type="text"] {
+        border: 0px;
+        font-family: cursive;
+        border-bottom: 2px solid orange;
+      }
+      input[type="text"]:focus {
+        border: 1px solid orange;
+      }
+      input[type="text"]:active {
+        border: 1px solid orange;
+      }
+      .aclass {
+        color: goldenrod;
+        border: 1px solid goldenrod;
+        padding: 5px 10px 5px 10px;
+      }
+      .aclass:hover {
+        background-color: black;
+        color: goldenrod;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md bg-warning navbar-light">
+      <a class="navbar-brand text-dark" href="/driverapproval/"
+        ><img
+          src="{% static  'img/logo.png'%}"
+          style="border-radius: 50%; height: 50px; width: 50px"
+      /></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-dark" id="active" href="/driver/"
+              >My Taxi</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/driverapproval/">My Request</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/history/">My History</a>
+          </li>
+          {% if 'email1' in request.session %}
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/logout/">Logout</a>
+          </li>
+          {% elif 'email' in request.session %}
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/driverlogout/">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/logout/">Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-6 mt-1">
+          <div class="card m-auto p-5 bg-warning">
+            <div class="card-header mb-4">
+              <h3 class="text-center">My details</h3>
+              <!-- <h6 class="text-right">{{ request.session.email }}</h6> -->
+            </div>
+            <div class="row">
+              <div class="col-md-4">Name</div>
+              <div class="col-md-8 display">{{ driver.name }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Email</div>
+              <div class="col-md-8 display">{{ driver.email }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Mobile</div>
+              <div class="col-md-8 display">{{ driver.mobile }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Password</div>
+              <div class="col-md-8 display">{{ driver.password }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Badge Number</div>
+              <div class="col-md-8 display">{{ driver.badge_number }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><br></div>
+              <div class="col-md-8 display"><br></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><br></div>
+              <div class="col-md-8 display"><br></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><br></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mt-1">
+          <div class="card m-auto p-5 bg-warning">
+            <div class="card-header mb-4">
+              <h3 class="text-center">My Taxi</h3>
+              <!-- <h6 class="text-right"><br></h6> -->
+            </div>
+            <div class="row">
+              <div class="col-md-4">Taxi No</div>
+              <div class="col-md-8 display">{{ taxi.taxi_no }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Taxi Price</div>
+              <div class="col-md-8 display">{{ taxi.price }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Taxi Source Point</div>
+              <div class="col-md-8 display">{{ taxi.source }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Taxi Destination Point</div>
+              <div class="col-md-8 display">{{ taxi.destination }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Taxi Driver Name</div>
+              <div class="col-md-8 display">{{ taxi.driver.name }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Taxi Driver No.</div>
+              <div class="col-md-8 display">{{ taxi.driver.mobile }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Taxi Booked?</div>
+              {% if taxi.is_accepted %}
+              <i class="fa fa-check fa-fw text-success"></i>
+                {% else %}
+                <i class="fa fa-close fa-fw text-error"></i>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<!-- <H1>My details</H1>
+    <h3>{{ request.session.email }}</h3>
+    <h2>Name: {{ driver.name }}</h2>
+    <h2>Email: {{ driver.email }}</h2>
+    <h2>Mobile: {{ driver.mobile }}</h2>
+    <h2>Password: {{ driver.password }}</h2>
+    <h2>Badge Number: {{ driver.badge_number }}</h2>
+    <hr>
+    <h1>My Taxi</h1>
+    <h3>Taxi No: {{ taxi }}</h3>
+    <h3>Taxi Price: {{ taxi.price }}</h3>
+    <h3>Taxi Source Point: {{ taxi.source }}</h3>
+    <h3>Taxi Destination Point: {{ taxi.destination }}</h3>
+    <h3>Taxi Driver: {{ taxi.driver.name }}</h3>
+    <h3>Taxi Driver: {{ taxi.driver.mobile }}</h3>
+    <h3>Taxi Approved: {{ taxi.is_accepted }}</h3> -->

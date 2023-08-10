@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#myTable").DataTable();
+      });
+    </script>
+    <title>Taxi List</title>
+    <style>
+      /* body {
+        background-image: linear-gradient(to bottom right, orange, yellow);
+        background-size: 100% 100%;
+      } */
+      #active {
+        font-weight: 900;
+        border-bottom: 2px solid;
+      }
+      .card {
+        height: 400px;
+      }
+      .nav-link:hover {
+        border-bottom: 2px solid;
+      }
+      .display {
+        font-size: larger;
+        font-weight: 600;
+      }
+      input[type="text"] {
+        border: 0px;
+        font-family: cursive;
+        border-bottom: 2px solid orange;
+      }
+      input[type="text"]:focus {
+        border: 1px solid orange;
+      }
+      input[type="text"]:active {
+        border: 1px solid orange;
+      }
+      .aclass {
+        color: goldenrod;
+        border: 1px solid goldenrod;
+        padding: 5px 10px 5px 10px;
+      }
+      .aclass:hover {
+        background-color: black;
+        color: goldenrod;
+      }
+      .carousel-inner img {
+        width: 100%;
+        height: 100%;
+      }
+      .carousel-item {
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md bg-warning navbar-light">
+      <a class="navbar-brand text-dark" href="/search/"
+        ><img
+          src="{% static  'img/logo.png'%}"
+          style="border-radius: 50%; height: 50px; width: 50px"
+      /></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="signin/">User Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="driversignin/">Driver Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div id="demo" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="carouselimg" src="{% static  'img/pic3.jpg'%}" />
+        </div>
+        <div class="carousel-item">
+          <img class="carouselimg" src="{% static  'img/pic2.jpg'%}" />
+        </div>
+        <div class="carousel-item">
+          <img class="carouselimg" src="{% static  'img/pic1.jpg'%}" />
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+    </div>
+    <div class="container mt-5 mb-5">
+      <div class="row">
+        <div class="col-md-4 mt-1">
+          <div class="card bg-warning">
+            <img
+              src="{% static  'img/request (1).png'%}"
+              height="100px"
+              width="100px"
+              class="ml-auto mt-2 mb-2 mr-auto" />
+            <span
+              style="
+                border-bottom: 2px solid whitesmoke;
+                margin: 20px 0px 20px 0px;
+              "></span>
+            <p class="text-white">
+              Open the app and enter your destination in the "Where to?" box.<br />
+              Once you confirm your pickup and destination addresses are
+              correct, select Uber Taxi at the bottom of your screen.<br />
+              Then tap Confirm Uber Taxi.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 mt-1">
+          <div class="card bg-warning">
+            <img
+              src="{% static  'img/share-ride.png'%}"
+              height="100px"
+              width="100px"
+              class="ml-auto mt-2 mb-2 mr-auto" />
+            <span
+              style="
+                border-bottom: 2px solid whitesmoke;
+                margin: 20px 0px 20px 0px;
+              "></span>
+            <p class="text-white">
+              Hop in when your driver arrives.<br />
+              Your driver has your destination and directions on the fastest
+              route to get there,<br />
+              but you can always request a specific route.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 mt-1">
+          <div class="card bg-warning">
+            <img
+              src="{% static  'img/hopout1.png'%}"
+              height="100px"
+              width="100px"
+              class="ml-auto mt-2 mb-2 mr-auto" />
+            <span
+              style="
+                border-bottom: 2px solid whitesmoke;
+                margin: 20px 0px 20px 0px;
+              "></span>
+            <p class="text-white">
+              You'll be automatically charged through your payment method on
+              file, so you can exit your Uber Taxi as soon as you arrive.<br/>
+              Remember to rate your driver at the end of the ride.<br/>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
